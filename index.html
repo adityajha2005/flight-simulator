@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flight Simulator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="view"></canvas>
+
+    <div id="hud" class="hidden">
+      <canvas id="minimap" width="190" height="190" aria-label="Airport map"></canvas>
+
+      <div id="objective">
+        <div class="kicker">Objective</div>
+        <div id="obj-title">Take off from runway 36</div>
+        <div id="obj-sub">Advance the throttle, then rotate</div>
+      </div>
+
+      <section class="stack left">
+        <div class="readout">
+          <div class="kicker">Airspeed</div>
+          <div class="value"><span id="spd">0</span><small>KT</small></div>
+        </div>
+        <div class="throttle-block">
+          <div class="kicker">Throttle</div>
+          <div class="bar"><div id="thr-fill"></div></div>
+          <div id="thr-read">0% · IDLE</div>
+        </div>
+      </section>
+
+      <section class="stack right">
+        <div class="readout">
+          <div class="kicker">Altitude</div>
+          <div class="value"><span id="alt">0</span><small>FT</small></div>
+        </div>
+        <div class="readout compact">
+          <div class="kicker">Vertical speed</div>
+          <div id="vs" class="vs">0 FPM</div>
+        </div>
+      </section>
+
+      <div id="adi" class="adi">
+        <div id="adi-rot" class="adi-rot">
+          <div id="adi-shift" class="adi-shift">
+            <div class="adi-sky"></div>
+            <div class="adi-ground"></div>
+            <div class="adi-horizon"></div>
+          </div>
+        </div>
+        <div class="adi-ref"></div>
+        <div id="status" class="status">PARKED</div>
+      </div>
+
+      <div id="hdg" class="hdg">
+        <div class="hdg-pointer"></div>
+        <div id="hdg-ticks" class="hdg-ticks"></div>
+        <div id="hdg-value">000°</div>
+      </div>
+
+      <div id="warning" class="warning hidden"></div>
+      <div id="toast" class="toast hidden"></div>
+      <div id="fpm" class="fpm hidden"></div>
+
+      <aside id="help">
+        <header>
+          <span>Controls</span>
+          <button id="help-toggle" type="button">Hide</button>
+        </header>
+        <ul>
+          <li><kbd>W</kbd><kbd>S</kbd><span>Pitch <em>W nose up · S nose down</em></span></li>
+          <li><kbd>A</kbd><kbd>D</kbd><span>Roll</span></li>
+          <li><kbd>Q</kbd><kbd>E</kbd><span>Yaw</span></li>
+          <li><kbd>Shift</kbd><kbd>Ctrl</kbd><span>Throttle</span></li>
+          <li><kbd>Space</kbd><span>Brake</span></li>
+          <li><kbd>H</kbd><span>Hide this panel</span></li>
+          <li><kbd>R</kbd><span>Restart flight</span></li>
+        </ul>
+      </aside>
+    </div>
+
+    <div id="menu" class="screen">
+      <div class="card">
+        <p class="eyebrow">Cedar Field · Runway 36</p>
+        <h1>FLIGHT SIMULATOR</h1>
+        <p class="lede">Take off, fly the left-hand circuit, and land back on the runway.</p>
+        <button id="start" class="primary" type="button">START FLIGHT</button>
+        <ul class="brief">
+          <li>Hold Shift to spool up. Rotate near 85 knots.</li>
+          <li>Fly through each gate in order.</li>
+          <li>Line up on runway 36, flare, and brake to a stop.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="results" class="screen hidden">
+      <div class="card center">
+        <p class="eyebrow">Cedar Field</p>
+        <h2>Flight completed</h2>
+        <p id="quality-note" class="lede"></p>
+        <dl class="stats">
+          <div>
+            <dt>Landing quality</dt>
+            <dd id="quality">BUTTER</dd>
+          </div>
+          <div>
+            <dt>Flight time</dt>
+            <dd id="flight-time">0:00</dd>
+          </div>
+          <div>
+            <dt>Final score</dt>
+            <dd id="final-score">0</dd>
+          </div>
+        </dl>
+        <button id="again" class="primary" type="button">Play Again</button>
+      </div>
+    </div>
+
+    <div id="crash" class="screen hidden">
+      <div class="card center">
+        <p class="eyebrow">Flight ended</p>
+        <h2>You crashed</h2>
+        <p id="crash-reason" class="lede"></p>
+        <button id="restart" class="primary" type="button">Restart</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
