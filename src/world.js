@@ -82,10 +82,10 @@ function skyTexture() {
   canvas.height = 512;
   const ctx = canvas.getContext("2d");
   const gradient = ctx.createLinearGradient(0, 0, 0, 512);
-  gradient.addColorStop(0, "#1563b0");
-  gradient.addColorStop(0.42, "#4ea6e2");
-  gradient.addColorStop(0.74, "#b7def4");
-  gradient.addColorStop(1, "#c5e2f4");
+  gradient.addColorStop(0, "#3e5f86");
+  gradient.addColorStop(0.38, "#c4785a");
+  gradient.addColorStop(0.72, "#f0b48a");
+  gradient.addColorStop(1, "#e7cbb6");
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, 8, 512);
   const texture = new THREE.CanvasTexture(canvas);
@@ -139,10 +139,10 @@ export function createWorld(scene, renderer) {
   const obstacles = [];
   const rand = mulberry32(7);
 
-  const hemi = new THREE.HemisphereLight(0xd9eeff, 0x6d9158, 0.95);
+  const hemi = new THREE.HemisphereLight(0xffd7bf, 0x6d6840, 0.9);
   scene.add(hemi);
 
-  const sun = new THREE.DirectionalLight(0xfff3d8, 3.1);
+  const sun = new THREE.DirectionalLight(0xffc49a, 2.7);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
   sun.shadow.camera.near = 20;
@@ -156,21 +156,21 @@ export function createWorld(scene, renderer) {
   scene.add(sun);
   scene.add(sun.target);
 
-  const fill = new THREE.DirectionalLight(0xc5dcff, 0.45);
+  const fill = new THREE.DirectionalLight(0xffb089, 0.4);
   fill.position.set(180, 90, -80);
   scene.add(fill);
 
   const pmrem = new THREE.PMREMGenerator(renderer);
   const env = new THREE.Scene();
-  env.add(new THREE.HemisphereLight(0xd4ecff, 0x6a8f56, 1));
-  const envSun = new THREE.DirectionalLight(0xfff0cc, 2.2);
+  env.add(new THREE.HemisphereLight(0xffd2b8, 0x6a6844, 1));
+  const envSun = new THREE.DirectionalLight(0xffb07a, 2.2);
   envSun.position.set(-3, 5, 2);
   env.add(envSun);
   scene.environment = pmrem.fromScene(env, 0.05).texture;
   pmrem.dispose();
 
-  scene.fog = new THREE.Fog(0xc5e2f4, 380, 5400);
-  scene.background = new THREE.Color(0xc5e2f4);
+  scene.fog = new THREE.Fog(0xe7cbb6, 320, 4800);
+  scene.background = new THREE.Color(0xe7cbb6);
 
   const sky = new THREE.Mesh(
     new THREE.SphereGeometry(6800, 28, 20),
@@ -180,12 +180,12 @@ export function createWorld(scene, renderer) {
 
   const sunDisc = new THREE.Mesh(
     new THREE.SphereGeometry(90, 16, 12),
-    new THREE.MeshBasicMaterial({ color: 0xfff4cf, fog: false }),
+    new THREE.MeshBasicMaterial({ color: 0xffc48a, fog: false }),
   );
   sunDisc.position.set(-2200, 2600, 1400);
   scene.add(sunDisc);
 
-  const grassMap = paintTexture([78, 138, 69], 28);
+  const grassMap = paintTexture([132, 124, 62], 36);
   grassMap.repeat.set(48, 48);
   const grass = new THREE.Mesh(
     new THREE.PlaneGeometry(5600, 5600),
@@ -195,10 +195,10 @@ export function createWorld(scene, renderer) {
   grass.receiveShadow = true;
   scene.add(grass);
 
-  const asphaltMap = paintTexture([62, 66, 72], 16);
+  const asphaltMap = paintTexture([58, 52, 48], 18);
   asphaltMap.repeat.set(6, 28);
   const asphalt = mat(0xffffff, 0.92, 0.02, asphaltMap);
-  const shoulder = new THREE.Mesh(new THREE.PlaneGeometry(72, 1960), mat(0x4a4f55, 0.95, 0.02));
+  const shoulder = new THREE.Mesh(new THREE.PlaneGeometry(72, 1960), mat(0x5c534c, 0.95, 0.02));
   shoulder.rotation.x = -Math.PI / 2;
   shoulder.position.y = 0.015;
   shoulder.receiveShadow = true;
@@ -216,7 +216,7 @@ export function createWorld(scene, renderer) {
   taxi.receiveShadow = true;
   scene.add(taxi);
 
-  const apronMat = mat(0xc4bfb4, 0.88, 0.03);
+  const apronMat = mat(0xcbb8a4, 0.88, 0.03);
   const apron = new THREE.Mesh(new THREE.PlaneGeometry(220, 560), apronMat);
   apron.rotation.x = -Math.PI / 2;
   apron.position.set(260, 0.02, -110);
@@ -232,7 +232,7 @@ export function createWorld(scene, renderer) {
     polygonOffsetUnits: -2,
   });
   const yellow = white.clone();
-  yellow.color.setHex(0xf0c84a);
+  yellow.color.setHex(0xe07a3a);
   const paint = (x, z, w, len, material = white) => {
     const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, 0.045, len), material);
     mesh.position.set(x, 0.07, z);
@@ -265,7 +265,7 @@ export function createWorld(scene, renderer) {
 
   const lake = new THREE.Mesh(
     new THREE.CircleGeometry(LAKE.r, 40),
-    new THREE.MeshStandardMaterial({ color: 0x2c7f9a, roughness: 0.18, metalness: 0.45 }),
+    new THREE.MeshStandardMaterial({ color: 0x2f6d66, roughness: 0.22, metalness: 0.35 }),
   );
   lake.rotation.x = -Math.PI / 2;
   lake.position.set(LAKE.x, 0.025, LAKE.z);
@@ -349,10 +349,10 @@ function addBoxObstacle(obstacles, minX, minY, minZ, maxX, maxY, maxZ, pad = 1.4
 }
 
 function addBuildings(scene, obstacles, rand) {
-  const concrete = mat(0xd8d3c8, 0.78, 0.05);
+  const concrete = mat(0xd7c4ae, 0.8, 0.04);
   const glassMap = windowGrid();
   const glass = new THREE.MeshStandardMaterial({
-    color: 0x9ec8da,
+    color: 0xd7a48a,
     map: glassMap,
     roughness: 0.18,
     metalness: 0.55,
@@ -370,7 +370,7 @@ function addBuildings(scene, obstacles, rand) {
   curtain.castShadow = true;
   scene.add(curtain);
 
-  const roof = new THREE.Mesh(new THREE.BoxGeometry(30, 1.1, 214), mat(0x8d97a3, 0.55, 0.25));
+  const roof = new THREE.Mesh(new THREE.BoxGeometry(30, 1.1, 214), mat(0x8c4d3a, 0.62, 0.12));
   roof.position.set(248, 16.6, -150);
   roof.castShadow = true;
   scene.add(roof);
@@ -378,7 +378,7 @@ function addBuildings(scene, obstacles, rand) {
   const sign = new THREE.Mesh(
     new THREE.BoxGeometry(1.2, 6, 42),
     new THREE.MeshStandardMaterial({
-      map: textTexture("CEDAR FIELD", 1024, 256, "#12356f", "#f4f1e6"),
+      map: textTexture("CEDAR FIELD", 1024, 256, "#6e2e22", "#f6efe6"),
       roughness: 0.6,
     }),
   );
@@ -408,8 +408,8 @@ function addBuildings(scene, obstacles, rand) {
   scene.add(mast);
   addBoxObstacle(obstacles, 322, 0, 8, 344, 52, 34);
 
-  hangar(scene, obstacles, 175, 70, 62, 48, 14, 0xb9b3a6);
-  hangar(scene, obstacles, 268, 78, 78, 54, 16, 0xa7b0b8);
+  hangar(scene, obstacles, 175, 70, 62, 48, 14, 0xc4a88e);
+  hangar(scene, obstacles, 268, 78, 78, 54, 16, 0xb08972);
 
   const radar = new THREE.Mesh(new THREE.SphereGeometry(4.5, 16, 12), mat(0xd5dbe2, 0.35, 0.4));
   radar.scale.y = 0.72;
@@ -453,7 +453,7 @@ function hangar(scene, obstacles, x, z, w, d, h, color) {
   const door = new THREE.Mesh(new THREE.BoxGeometry(w * 0.72, h * 0.7, 0.5), mat(0x3e4650, 0.55, 0.2));
   door.position.set(x, h * 0.36, z - d / 2 - 0.2);
   scene.add(door);
-  const stripe = new THREE.Mesh(new THREE.BoxGeometry(w + 0.4, 0.8, d + 0.4), mat(0x163e86, 0.5));
+  const stripe = new THREE.Mesh(new THREE.BoxGeometry(w + 0.4, 0.8, d + 0.4), mat(0xc4492e, 0.5));
   stripe.position.set(x, h - 0.7, z);
   scene.add(stripe);
   addBoxObstacle(obstacles, x - w / 2, 0, z - d / 2, x + w / 2, h, z + d / 2);
@@ -501,8 +501,8 @@ function addTrees(scene, rand) {
   const count = 180;
   const trunkGeo = new THREE.CylinderGeometry(0.25, 0.4, 1, 5);
   const crownGeo = new THREE.SphereGeometry(1, 7, 6);
-  const trunkMat = new THREE.MeshLambertMaterial({ color: 0x6b4a32 });
-  const crownMat = new THREE.MeshLambertMaterial({ color: 0x2f7a3a });
+  const trunkMat = new THREE.MeshLambertMaterial({ color: 0x6a4630 });
+  const crownMat = new THREE.MeshLambertMaterial({ color: 0x6e7a38 });
   const trunks = new THREE.InstancedMesh(trunkGeo, trunkMat, count);
   const crowns = new THREE.InstancedMesh(crownGeo, crownMat, count);
   const dummy = new THREE.Object3D();
@@ -541,7 +541,7 @@ function addHills(scene) {
     const radius = 2000 + (i % 4) * 180;
     const hill = new THREE.Mesh(
       new THREE.SphereGeometry(160 + (i % 5) * 36, 14, 10),
-      new THREE.MeshLambertMaterial({ color: i % 2 ? 0x7d9a68 : 0x688858 }),
+      new THREE.MeshLambertMaterial({ color: i % 2 ? 0x8a8450 : 0x6e7344 }),
     );
     hill.position.set(Math.cos(angle) * radius, -50, Math.sin(angle) * radius);
     hill.scale.y = 0.42 + (i % 3) * 0.08;
@@ -560,7 +560,7 @@ function addCity(scene, rand) {
     const building = new THREE.Mesh(
       new THREE.BoxGeometry(w, h, d),
       new THREE.MeshStandardMaterial({
-        color: 0xc3ccd4,
+        color: 0xd2bba8,
         map: facade,
         roughness: 0.62,
         metalness: 0.15,
@@ -577,11 +577,11 @@ function windowGrid() {
   canvas.width = 128;
   canvas.height = 256;
   const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "#8fb4c6";
+  ctx.fillStyle = "#c9957a";
   ctx.fillRect(0, 0, 128, 256);
   for (let y = 8; y < 256; y += 22) {
     for (let x = 6; x < 128; x += 16) {
-      ctx.fillStyle = Math.random() > 0.82 ? "#f3dd9a" : "#173044";
+      ctx.fillStyle = Math.random() > 0.82 ? "#f6e2c4" : "#3a241c";
       ctx.fillRect(x, y, 10, 14);
     }
   }
@@ -596,9 +596,10 @@ function addClouds(scene, rand) {
   const texture = cloudTexture();
   const material = new THREE.SpriteMaterial({
     map: texture,
+    color: 0xffe4d4,
     transparent: true,
     depthWrite: false,
-    opacity: 0.9,
+    opacity: 0.88,
   });
   const clouds = [];
   for (let i = 0; i < 28; i += 1) {
@@ -626,8 +627,8 @@ function addGates(scene) {
     if (Math.abs(def.dir.x) > 0.5) group.rotation.y = Math.PI / 2;
 
     const ringMat = new THREE.MeshStandardMaterial({
-      color: 0xffc14d,
-      emissive: 0xffc14d,
+      color: 0xe36a45,
+      emissive: 0xe36a45,
       emissiveIntensity: 0.8,
       roughness: 0.35,
       metalness: 0.1,
@@ -637,7 +638,7 @@ function addGates(scene) {
 
     const beam = new THREE.Mesh(
       new THREE.CylinderGeometry(0.35, 0.45, Math.max(8, def.y - 30), 6),
-      new THREE.MeshBasicMaterial({ color: 0xffc14d, transparent: true, opacity: 0.28, depthWrite: false }),
+      new THREE.MeshBasicMaterial({ color: 0xe36a45, transparent: true, opacity: 0.28, depthWrite: false }),
     );
     beam.position.y = -(def.y / 2) - 12;
     group.add(beam);
@@ -655,7 +656,7 @@ function gateLabel(text) {
   canvas.height = 128;
   const ctx = canvas.getContext("2d");
   ctx.font = "700 68px sans-serif";
-  ctx.fillStyle = "#ffe2ad";
+  ctx.fillStyle = "#ffd2c2";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillText(text.toUpperCase(), 256, 64);

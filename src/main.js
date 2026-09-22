@@ -438,10 +438,10 @@ function updateWorld(dt) {
       gate.ring.scale.setScalar(1);
     } else if (active) {
       const pulse = 0.65 + Math.sin(time * 4) * 0.35;
-      gate.ringMat.color.setHex(0xffc14d);
-      gate.ringMat.emissive.setHex(0xffc14d);
+      gate.ringMat.color.setHex(0xe36a45);
+      gate.ringMat.emissive.setHex(0xe36a45);
       gate.ringMat.emissiveIntensity = pulse;
-      gate.beam.material.color.setHex(0xffc14d);
+      gate.beam.material.color.setHex(0xe36a45);
       gate.beam.material.opacity = 0.18 + pulse * 0.12;
       gate.label.visible = true;
       gate.ring.scale.setScalar(1 + Math.sin(time * 3) * 0.035);

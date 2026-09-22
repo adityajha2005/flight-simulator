@@ -10,9 +10,9 @@ function tailTexture() {
   canvas.width = 256;
   canvas.height = 512;
   const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "#14356f";
+  ctx.fillStyle = "#4a241c";
   ctx.fillRect(0, 0, 256, 512);
-  ctx.strokeStyle = "#f2c14e";
+  ctx.strokeStyle = "#e7b089";
   ctx.lineWidth = 16;
   ctx.lineJoin = "round";
   ctx.beginPath();
@@ -20,7 +20,7 @@ function tailTexture() {
   ctx.lineTo(128, 70);
   ctx.lineTo(208, 430);
   ctx.stroke();
-  ctx.fillStyle = "#f7f4ea";
+  ctx.fillStyle = "#f6efe6";
   ctx.font = "700 86px sans-serif";
   ctx.textAlign = "center";
   ctx.fillText("H", 128, 300);
@@ -35,7 +35,7 @@ function decalTexture(text) {
   canvas.height = 64;
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, 256, 64);
-  ctx.fillStyle = "#1a3f86";
+  ctx.fillStyle = "#c4492e";
   ctx.font = "700 40px sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -47,12 +47,12 @@ function decalTexture(text) {
 
 export function createAircraft() {
   const group = new THREE.Group();
-  const white = standard(0xf4f7fb, 0.38, 0.22);
-  const blue = standard(0x163e86, 0.42, 0.16);
-  const metal = standard(0xc5ced8, 0.32, 0.72);
-  const dark = standard(0x121820, 0.25, 0.55);
-  const rubber = standard(0x1a1d22, 0.85, 0.05);
-  const wingMat = standard(0xe7eef5, 0.46, 0.12);
+  const white = standard(0xf3e6d4, 0.42, 0.16);
+  const blue = standard(0xc4492e, 0.46, 0.12);
+  const metal = standard(0xcbb6a6, 0.34, 0.68);
+  const dark = standard(0x241812, 0.28, 0.5);
+  const rubber = standard(0x241c18, 0.85, 0.05);
+  const wingMat = standard(0xf7efe4, 0.5, 0.08);
 
   const tube = new THREE.Mesh(new THREE.CylinderGeometry(1.85, 1.85, 22, 24), white);
   tube.rotation.x = Math.PI / 2;
@@ -68,7 +68,7 @@ export function createAircraft() {
   tailCone.position.z = 15;
   group.add(tailCone);
 
-  const belly = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.45, 10), standard(0xd5dbe3, 0.6, 0.1));
+  const belly = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.45, 10), standard(0xe4d3c0, 0.6, 0.1));
   belly.position.set(0, -1.7, 0.4);
   group.add(belly);
 
@@ -157,7 +157,7 @@ function buildWings(group, wingMat, white) {
   aileronL.add(aileronLMesh);
   left.add(aileronL);
 
-  const wingletL = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.5, 1.8), standardSafe(0x163e86));
+  const wingletL = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.5, 1.8), standardSafe(0xc4492e));
   wingletL.position.set(-14.7, 0.7, -0.2);
   wingletL.rotation.z = -0.08;
   left.add(wingletL);
@@ -177,7 +177,7 @@ function buildWings(group, wingMat, white) {
   aileronR.add(aileronRMesh);
   right.add(aileronR);
 
-  const wingletR = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.5, 1.8), standardSafe(0x163e86));
+  const wingletR = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.5, 1.8), standardSafe(0xc4492e));
   wingletR.position.set(14.7, 0.7, -0.2);
   wingletR.rotation.z = 0.08;
   right.add(wingletR);

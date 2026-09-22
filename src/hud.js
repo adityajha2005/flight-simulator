@@ -130,7 +130,7 @@ function drawMap(ctx, state, attitude, mission) {
   const w = canvas.width;
   const h = canvas.height;
   ctx.clearRect(0, 0, w, h);
-  ctx.fillStyle = "rgba(6, 18, 28, 0.72)";
+  ctx.fillStyle = "rgba(36, 22, 18, 0.78)";
   ctx.fillRect(0, 0, w, h);
 
   const range = 4200;
@@ -140,21 +140,21 @@ function drawMap(ctx, state, attitude, mission) {
   const px = (x) => cx + x * scale;
   const pz = (z) => cy + z * scale;
 
-  ctx.fillStyle = "#2f86a0";
+  ctx.fillStyle = "#2f6d66";
   ctx.beginPath();
   ctx.arc(px(LAKE.x), pz(LAKE.z), LAKE.r * scale, 0, Math.PI * 2);
   ctx.fill();
 
-  ctx.fillStyle = "#b7b2a7";
+  ctx.fillStyle = "#cbb8a4";
   ctx.fillRect(px(145), pz(-390), 225 * scale, 560 * scale);
-  ctx.fillStyle = "#8b929a";
+  ctx.fillStyle = "#6a625c";
   ctx.fillRect(px(-24), pz(-900), 48 * scale, 1800 * scale);
 
   mission.gates.forEach((gate, index) => {
     ctx.beginPath();
     ctx.arc(px(gate.x), pz(gate.z), index === mission.nextGate ? 5 : 3.5, 0, Math.PI * 2);
     if (index < mission.nextGate) ctx.fillStyle = "#63f0a8";
-    else if (index === mission.nextGate) ctx.fillStyle = "#ffc14d";
+    else if (index === mission.nextGate) ctx.fillStyle = "#e36a45";
     else ctx.fillStyle = "rgba(255,255,255,0.45)";
     ctx.fill();
   });
@@ -173,7 +173,7 @@ function drawMap(ctx, state, attitude, mission) {
   ctx.restore();
 
   ctx.fillStyle = "rgba(214, 246, 255, 0.8)";
-  ctx.font = "11px 'IBM Plex Mono', ui-monospace, monospace";
+  ctx.font = "11px Outfit, sans-serif";
   ctx.fillText("N", cx - 4, 14);
 }
 
